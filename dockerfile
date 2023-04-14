@@ -2,6 +2,7 @@ FROM python:3.6.15-slim-buster
 RUN apt update
 RUN apt install -y git libmagic-dev
 RUN mkdir -p /usr/lib/ckan/default
+RUN mkdir -p /var/lib/ckan/default
 RUN python -m venv /usr/lib/ckan/default
 RUN /usr/lib/ckan/default/bin/pip install setuptools==44.1.0
 RUN /usr/lib/ckan/default/bin/pip install --upgrade pip
