@@ -2,7 +2,7 @@
 #
 #BASIC SETUP
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_id = Indexa Geodata"
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_urL = ${CKA_SITE_URL}"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_urL = ${CKAN_SITE_URL}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "sqlalchemy.url = ${CKAN_SQLALCHEMY_URL}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.create_user_via_web = false"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.locale_default = es"
@@ -12,8 +12,8 @@
 #PLUGINS
 #
 #datastore
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.write_url = postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@db/$POSTGRES_DATABASE_CKAN"
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.read_url = postgresql://$DATASTORE_USER:$DATASTORE_PASSWORD@db/$POSTGRES_DATABASE_DATASTORE"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.write_url = postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DATABASE_CKAN}"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.read_url = postgresql://${DATASTORE_USER}:${DATASTORE_PASSWORD}@db/${POSTGRES_DATABASE_DATASTORE}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.storage_path = /var/lib/ckan/default"
 
 #ckanext-xloader
