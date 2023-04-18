@@ -3,7 +3,7 @@
 #BASIC SETUP
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_id = Indexa Geodata"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_urL = ${CKAN_SITE_URL}"
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "sqlalchemy.url = ${CKAN_SQLALCHEMY_URL}"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "sqlalchemy.url = postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.create_user_via_web = false"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.locale_default = es"
 
