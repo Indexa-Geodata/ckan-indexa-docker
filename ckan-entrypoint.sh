@@ -1,11 +1,35 @@
 #!/bin/bash
 #
 #BASIC SETUP
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_id = Indexa Geodata"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_id = ${CKAN_SITE_ID}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_urL = ${CKAN_SITE_URL}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "sqlalchemy.url = postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.create_user_via_web = false"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.locale_default = es"
+
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.anon_create_dataset = true"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.user_create_organizations = true"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.user_delete_groups = true"
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
+#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
 
 /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini db init
 
@@ -14,6 +38,7 @@
 #datastore
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.write_url = postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.read_url = postgresql://${DATASTORE_USER}:${DATASTORE_PASSWORD}@db/${POSTGRES_DATABASE_DATASTORE}"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.storage_path = /var/lib/ckan/default"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.storage_path = /var/lib/ckan/default"
 
 #ckanext-xloader
@@ -35,7 +60,17 @@ git clone https://github.com/enprava/ckanext-indexa.git
 
 #setting ckan.plugins
 
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.plugins = stats text_view image_view recline_view datastore xloader hierarchy_display hierarchy_form hierarchy_group_form indexa"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.plugins = stats text_view image_view recline_view webpage_view datastore xloader hierarchy_display hierarchy_form hierarchy_group_form indexa"
+
+#CREATING USERS
+
+/usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini user add user=${CKAN_SYADMIN} email=${CKAN_SYADMIN_EMAIL} name=${CKAN_SYADMIN} password=${CKAN_SYADMIN_PASSWORD}
+
+/usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini user add user=${CKAN_USER} email=${CKAN_USER_EMAIL} name=${CKAN_USER} password=${CKAN_USER_PASSWORD}
+
+/usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini sysadmin add ${CKAN_SYADMIN}
+
+/usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini user remove ${CKAN_SITE_ID}
 
 #DEPLOY
 /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini run --host 0.0.0.0

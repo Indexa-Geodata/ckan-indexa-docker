@@ -41,6 +41,7 @@ services:
       - "5000:5000"
     environment:
       POSTGRES_DB: $POSTGRES_DB
+      CKAN_SITE_ID: $CKAN_SITE_ID
       CKAN_SITE_URL: $CKAN_SITE_URL
       CKAN_SOLR_URL: http://solr:8983/solr/ckan
       CKAN_REDIS_URL: redis://redis:6379/1
@@ -49,12 +50,20 @@ services:
       DATASTORE_USER: $DATASTORE_USER
       DATASTORE_PASSWORD: $DATASTORE_USER_PASSWORD
       POSTGRES_DATABASE_DATASTORE: $POSTGRES_DATABASE_DATASTORE
+      CKAN_SYADMIN: $CKAN_SYADMIN
+      CKAN_SYADMIN_EMAIL: $CKAN_SYADMIN_EMAIL
+      CKAN_SYADMIN_PASSWORD: $CKAN_SYADMIN_PASSWORD
+      CKAN_USER: $CKAN_USER
+      CKAN_USER_EMAIL: $CKAN_USER_EMAIL
+      CKAN_USER_PASSWORD: $CKAN_USER_PASSWORD
 
     command: sh -c /ckan-entrypoint.sh
     depends_on:
       - db
       - solr
       - redis
+    volumes:
+      - ckan_storage_path:/var/lib/ckan/default
   redis:
     networks:
       - ckan_network
@@ -69,8 +78,10 @@ services:
     networks:
       - ckan_network
     restart: "unless-stopped"
+    environment:
+      SERVER_NAME: $SERVER_NAME
 
 volumes:
   db_data:
   solr_data:
-
+  ckan_storage_path:
