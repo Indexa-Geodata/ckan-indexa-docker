@@ -3,10 +3,10 @@ This is a CKAN custom docker-compose build for [Indexa Geodata Catalogue](http:/
 ## Deploy
 1. Create a .env file. You can use default .env.template but it's not recommended for production.
 ```
-     cp .env.template .env
+cp .env.template .env
 ```
 2. Use docker-compose to run CKAN.
 	
 ```
-	docker-compose up --build
+docker-compose up --build
 ```
