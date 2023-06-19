@@ -10,26 +10,6 @@
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.anon_create_dataset = true"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.user_create_organizations = true"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.user_delete_groups = true"
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
-#/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" ""
 
 /usr/lib/ckan/default/bin/ckan -c /etc/ckan/default/ckan.ini db init
 
@@ -54,7 +34,14 @@ cd /usr/lib/ckan/default/src
 
 #ckanext-indexa
 cd /usr/lib/ckan/default/src
-git clone https://github.com/enprava/ckanext-indexa.git
+if [ "$DEV" == true ]; then
+    echo 'DEV mode is enabled'
+else
+    echo 'DEV mode is disabled'
+    rm -r ckanext-indexa
+    git clone https://github.com/enprava/ckanext-indexa.git
+fi
+
 /usr/lib/ckan/default/bin/pip install -e ckanext-indexa
 /usr/lib/ckan/default/bin/pip install -r ckanext-indexa/requirements.txt
 

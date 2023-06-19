@@ -56,7 +56,7 @@ services:
       CKAN_USER: $CKAN_USER
       CKAN_USER_EMAIL: $CKAN_USER_EMAIL
       CKAN_USER_PASSWORD: $CKAN_USER_PASSWORD
-
+      DEV: false
     command: sh -c /ckan-entrypoint.sh
     depends_on:
       - db

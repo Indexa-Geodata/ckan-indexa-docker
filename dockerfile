@@ -16,3 +16,4 @@ RUN /usr/lib/ckan/default/bin/ckan generate config /etc/ckan/default/ckan.ini
 RUN ln -s /usr/lib/ckan/default/src/ckan/who.ini /etc/ckan/default/who.ini
 EXPOSE 5000
 COPY ckan-entrypoint.sh /
+RUN mkdir /usr/lib/ckan/default/src/ckanext-indexa
