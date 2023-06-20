@@ -52,7 +52,7 @@ fi
 
 #setting ckan.plugins
 
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.plugins = stats text_view image_view recline_view webpage_view datastore xloader hierarchy_display hierarchy_form hierarchy_group_form indexa"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.plugins = stats text_view image_view resource_proxy recline_view webpage_view datastore xloader hierarchy_display hierarchy_form hierarchy_group_form indexa"
 
 #CREATING USERS
 
