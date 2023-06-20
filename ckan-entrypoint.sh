@@ -27,6 +27,11 @@
 /usr/lib/ckan/default/bin/pip install -U requests[security]
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckanext.xloader.jobs_db.uri = ${CKAN_SQLALCHEMY_URL}"
 
+#ckanext-pages
+#cd /usr/lib/ckan/default/src
+#/usr/lib/ckan/default/bin/pip install -e 'git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages'
+#/usr/lib/ckan/default/bin/ckan --config=/etc/ckan/default/ckan.ini pages initdb
+
 #ckanext-hierarchy
 cd /usr/lib/ckan/default/src
 /usr/lib/ckan/default/bin/pip install -e "git+https://github.com/enprava/ckanext-hierarchy.git#egg=ckanext-hierarchy"
