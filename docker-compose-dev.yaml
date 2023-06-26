@@ -58,6 +58,7 @@ services:
       CKAN_USER: $CKAN_USER
       CKAN_USER_EMAIL: $CKAN_USER_EMAIL
       CKAN_USER_PASSWORD: $CKAN_USER_PASSWORD
+      CKAN_SQL: $CKAN_SQL
       DEV: true
       CKAN_MAX_FILE_SIZE: $CKAN_MAX_FILE_SIZE
     command: sh -c /ckan-entrypoint.sh

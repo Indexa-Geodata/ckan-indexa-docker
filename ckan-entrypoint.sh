@@ -3,7 +3,7 @@
 #BASIC SETUP
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_id = ${CKAN_SITE_ID}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.site_urL = ${CKAN_SITE_URL}"
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "sqlalchemy.url = postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "sqlalchemy.url = ${CKAN_SQL}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.auth.create_user_via_web = false"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.locale_default = es"
 
@@ -15,20 +15,26 @@
 
 #PLUGINS
 
-#ckanext-viewhelpers
-cd /usr/lib/ckan/default/src
-git clone https://github.com/ckan/ckanext-viewhelpers.git
-cd ckanext-viewhelpers
-/usr/lib/ckan/default/bin/python setup.py install
+# #ckanext-viewhelpers
+# cd /usr/lib/ckan/default/src
+# git clone https://github.com/ckan/ckanext-viewhelpers.git
+# cd ckanext-viewhelpers
+# /usr/lib/ckan/default/bin/python setup.py install
 
-#ckanext-dashboard
+# #ckanext-dashboard
+# cd /usr/lib/ckan/default/src
+# git clone https://github.com/ckan/ckanext-dashboard.git
+# cd ckanext-dashboard
+# /usr/lib/ckan/default/bin/python setup.py install
+
+#ckanext-mapviews
 cd /usr/lib/ckan/default/src
-git clone https://github.com/ckan/ckanext-dashboard.git
-cd ckanext-dashboard
+git clone https://github.com/ckan/ckanext-mapviews.git
+cd ckanext-mapviews
 /usr/lib/ckan/default/bin/python setup.py install
 
 #datastore
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.write_url = postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.write_url = postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DATABASE_DATASTORE}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.datastore.read_url = postgresql://${DATASTORE_USER}:${DATASTORE_PASSWORD}@db/${POSTGRES_DATABASE_DATASTORE}"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.storage_path = /var/lib/ckan/default"
 /usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.storage_path = /var/lib/ckan/default"
@@ -37,15 +43,12 @@ cd ckanext-dashboard
 /usr/lib/ckan/default/bin/pip install ckanext-xloader
 /usr/lib/ckan/default/bin/pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt
 /usr/lib/ckan/default/bin/pip install -U requests[security]
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckanext.xloader.jobs_db.uri = ${CKAN_SQLALCHEMY_URL}"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckanext.xloader.jobs_db.uri = ${CKAN_SQL}"
 
-#ckanext-pages
-#cd /usr/lib/ckan/default/src
-#/usr/lib/ckan/default/bin/pip install -e 'git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages'
-#/usr/lib/ckan/default/bin/ckan --config=/etc/ckan/default/ckan.ini pages initdb
-
-#ckanext-geoview
-/usr/lib/ckan/default/bin/pip install ckanext-geoview
+# #ckanext-geoview
+# cd /usr/lib/ckan/default/src
+# git clone https://github.com/ckan/ckanext-geoview.git
+# /usr/lib/ckan/default/bin/pip install -e ckanext-geoview
 
 #ckanext-hierarchy
 cd /usr/lib/ckan/default/src
@@ -67,7 +70,7 @@ fi
 
 #setting ckan.plugins
 
-/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.plugins = stats text_view image_view resource_proxy recline_view webpage_view datastore xloader hierarchy_display hierarchy_form hierarchy_group_form indexa"
+/usr/lib/ckan/default/bin/ckan config-tool "/etc/ckan/default/ckan.ini" "ckan.plugins = stats text_view image_view resource_proxy recline_view webpage_view datastore xloader hierarchy_display hierarchy_form hierarchy_group_form indexa navigablemap choroplethmap"
 
 #CREATING USERS
 
