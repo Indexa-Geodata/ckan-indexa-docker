@@ -1,3 +1,4 @@
 .env
 ckanext-indexa
 ckan-ckan-2.9.5
+.env.staging

@@ -85,7 +85,14 @@ services:
     restart: "unless-stopped"
     environment:
       SERVER_NAME: $SERVER_NAME
-
+  maps:
+    networks:
+      - ckan_network
+    build:
+      dockerfile: ./maps/dockerfile
+    ports:
+      - "3000:3000"
+    command: sh -c "serve -s ./build"
 volumes:
   db_data:
   solr_data:

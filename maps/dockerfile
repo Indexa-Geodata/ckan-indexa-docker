@@ -1,0 +1,11 @@
+FROM node:19.9.0
+RUN git clone https://github.com/enprava/indexa-ckan-map.git
+WORKDIR /indexa-ckan-map
+COPY ./maps/municipios.json /indexa-ckan-map/src
+COPY ./maps/provincias.json /indexa-ckan-map/src
+COPY ./maps/.env.staging /indexa-ckan-map
+RUN npm i
+RUN npm run build:staging
+RUN mkdir build/maps
+RUN mv build/static build/maps/static
+RUN npm i --global serve
