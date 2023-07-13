@@ -39,6 +39,8 @@ services:
     restart: always
     ports:
       - "5000:5000"
+    extra_hosts:
+      - "dockerhost:172.17.0.1" 
     environment:
       POSTGRES_DB: $POSTGRES_DB
       CKAN_SITE_ID: $CKAN_SITE_ID
@@ -56,6 +58,7 @@ services:
       CKAN_USER: $CKAN_USER
       CKAN_USER_EMAIL: $CKAN_USER_EMAIL
       CKAN_USER_PASSWORD: $CKAN_USER_PASSWORD
+      CKAN_SQL: $CKAN_SQL
       CKAN_MAX_FILE_SIZE: $CKAN_MAX_FILE_SIZE
     command: sh -c /ckan-entrypoint.sh
     depends_on:
@@ -80,7 +83,14 @@ services:
     restart: "unless-stopped"
     environment:
       SERVER_NAME: $SERVER_NAME
-
+  maps:
+    networks:
+      - ckan_network
+    build:
+      dockerfile: ./maps/dockerfile
+    ports:
+      - "3000:3000"
+    command: sh -c "serve -s ./build"
 volumes:
   db_data:
   solr_data:
