@@ -61,7 +61,7 @@ services:
       CKAN_SQL: $CKAN_SQL
       DEV: true
       CKAN_MAX_FILE_SIZE: $CKAN_MAX_FILE_SIZE
-    command: sh -c /ckan-entrypoint.sh
+    command: sh -c /ckan-entrypoint/ckan-entrypoint.sh
     depends_on:
       - db
       - solr

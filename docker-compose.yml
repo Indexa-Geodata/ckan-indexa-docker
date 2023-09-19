@@ -56,14 +56,16 @@ services:
       CKAN_USER: $CKAN_USER
       CKAN_USER_EMAIL: $CKAN_USER_EMAIL
       CKAN_USER_PASSWORD: $CKAN_USER_PASSWORD
+      CKAN_SQL: $CKAN_SQL
       CKAN_MAX_FILE_SIZE: $CKAN_MAX_FILE_SIZE
-    command: sh -c /ckan-entrypoint.sh
+    command: sh -c /ckan-entrypoint/ckan-entrypoint.sh
     depends_on:
       - db
       - solr
       - redis
     volumes:
       - ckan_storage_path:/var/lib/ckan/default
+      - ./ckanext-indexa:/usr/lib/ckan/default/src/ckanext-indexa
   redis:
     networks:
       - ckan_network
@@ -80,7 +82,14 @@ services:
     restart: "unless-stopped"
     environment:
       SERVER_NAME: $SERVER_NAME
-
+  maps:
+    networks:
+      - ckan_network
+    build:
+      dockerfile: ./maps/dockerfile
+    ports:
+      - "3000:3000"
+    command: sh -c "serve -s ./build"
 volumes:
   db_data:
   solr_data:
