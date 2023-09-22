@@ -10,9 +10,10 @@ CKAN_INI=/etc/ckan/default/ckan.ini
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.locale_default = es"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.cors.origin_allow_all = True"
 
-/usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.anon_create_dataset = true"
+/usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.anon_create_dataset = false"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.user_create_organizations = true"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.user_delete_groups = true"
+/usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.user_create_groups = true"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.max_resource_size = ${CKAN_MAX_FILE_SIZE}"
 /usr/lib/ckan/default/bin/ckan -c ${CKAN_INI} db init
 
@@ -34,7 +35,7 @@ cd /usr/lib/ckan/default/src
 
 #ckanext-indexa
 if [ "$INDEXA" == true ]; then
-    bash /ckan-entrypoint/ckan-entrypoint.sh
+    bash /ckan-entrypoint/ckanext-indexa.sh
 fi
 
 
