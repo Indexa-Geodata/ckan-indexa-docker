@@ -8,7 +8,7 @@ CKAN_INI=/etc/ckan/default/ckan.ini
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "sqlalchemy.url = ${CKAN_SQL}"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.create_user_via_web = false"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.locale_default = es"
-/usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.cors.origin_allow_all = True"
+/usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.cors.origin_allow_all = true"
 
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.anon_create_dataset = false"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.user_create_organizations = true"
@@ -30,14 +30,19 @@ CKAN_INI=/etc/ckan/default/ckan.ini
 
 #ckanext-hierarchy
 cd /usr/lib/ckan/default/src
-/usr/lib/ckan/default/bin/pip install -e "git+https://github.com/enprava/ckanext-hierarchy.git#egg=ckanext-hierarchy"
+if [ "$DEV" == true ]; then
+    echo 'Installing ckanext-hierarchy in development mode'
+else
+    echo 'Installing ckanext-hierarchy in production mode'
+    git clone https://github.com/enprava/ckanext-hierarchy.git
+fi
+/usr/lib/ckan/default/bin/pip install -e ckanext-hierarchy
 /usr/lib/ckan/default/bin/pip install -r ckanext-hierarchy/requirements.txt
 
 #ckanext-indexa
 if [ "$INDEXA" == true ]; then
     bash /ckan-entrypoint/ckanext-indexa.sh
 fi
-
 
 #setting ckan.plugins
 if [ "$INDEXA" == true ]; then
@@ -48,7 +53,6 @@ fi
 
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.views.default_views = image_view text_view recline_view webpage_view"
 
-
 #CREATING USERS
 
 /usr/lib/ckan/default/bin/ckan -c ${CKAN_INI} user add user=${CKAN_SYADMIN} email=${CKAN_SYADMIN_EMAIL} name=${CKAN_SYADMIN} password=${CKAN_SYADMIN_PASSWORD}
@@ -56,7 +60,6 @@ fi
 /usr/lib/ckan/default/bin/ckan -c ${CKAN_INI} user add user=${CKAN_USER} email=${CKAN_USER_EMAIL} name=${CKAN_USER} password=${CKAN_USER_PASSWORD}
 
 /usr/lib/ckan/default/bin/ckan -c ${CKAN_INI} sysadmin add ${CKAN_SYADMIN}
-
 
 #DEPLOY
 /usr/lib/ckan/default/bin/ckan -c ${CKAN_INI} run --host 0.0.0.0

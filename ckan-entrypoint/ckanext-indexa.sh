@@ -2,9 +2,9 @@
 
 cd /usr/lib/ckan/default/src
 if [ "$DEV" == true ]; then
-    echo 'DEV mode is enabled'
+    echo 'Installing ckanext-indexa in development mode'
 else
-    echo 'DEV mode is disabled'
+    echo 'Installing ckanext-indexa in production mode'
     rm -r ckanext-indexa
     git clone https://github.com/enprava/ckanext-indexa.git
 fi
