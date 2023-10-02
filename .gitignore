@@ -1,4 +1,7 @@
 .env
 ckanext-indexa
+ckanext-hierarchy
 ckan-ckan-2.9.5
 .env.staging
+ckan_datos
+ckan-indexa-docker.code-workspace

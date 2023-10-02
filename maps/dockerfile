@@ -9,3 +9,5 @@ RUN npm run build:staging
 RUN mkdir build/maps
 RUN mv build/static build/maps/static
 RUN npm i --global serve
+RUN rm -rf build/maps/css/*.map
+RUN rm -rf build/maps/js/*.map
