@@ -15,6 +15,8 @@ CKAN_INI=/etc/ckan/default/ckan.ini
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.user_delete_groups = true"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.auth.user_create_groups = true"
 /usr/lib/ckan/default/bin/ckan config-tool "${CKAN_INI}" "ckan.max_resource_size = ${CKAN_MAX_FILE_SIZE}"
+sed -i "s/recline.Backend.DataProxy.timeout = 10000;/recline.Backend.DataProxy.timeout = 180000;/g" /usr/lib/ckan/default/src/ckan/ckanext/reclineview/theme/public/recline_view.js
+
 /usr/lib/ckan/default/bin/ckan -c ${CKAN_INI} db init
 
 #datastore
