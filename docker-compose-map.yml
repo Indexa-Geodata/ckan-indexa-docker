@@ -1,0 +1,26 @@
+version: '3.5'
+
+networks:
+  ckan_network:
+    driver: bridge
+
+services:
+  maps:
+    networks:
+      - ckan_network
+    build:
+      dockerfile: ./maps/dockerfile
+    ports:
+      - "3000:3000"
+    command: sh -c "serve -s ./build"
+  nginx:
+    image: nginx
+    volumes:
+      - ./maps/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    networks:
+      - ckan_network
+    restart: "unless-stopped"
+    environment:
+      SERVER_NAME: $SERVER_NAME
